@@ -2,7 +2,7 @@
 .env
 
 # Ignore node_modules directory
-node_modules/
+/home/meshach/gemini-chatbot/node_modules
 
 # Optional: Ignore other common files and directories
 .DS_Store
