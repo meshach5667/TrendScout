@@ -20,7 +20,8 @@ TrendScout is an innovative AI-powered application that keeps you up-to-date wit
 
 ## Video Demo
 
-[Insert your video demo here, showing how to use TrendBot, including trend viewing, chatting, and newsletter generation]
+[Watch the video](/home/meshach/gemini-chatbot/public/TrendscoutDemo.webm)
+
 
 ## Building and Running TrendBot
 
