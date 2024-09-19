@@ -1,6 +1,6 @@
-# TrendBot: Your AI-Powered Trend Analyzer and Newsletter Generator
+# TrendScout: Your AI-Powered Trend Analyzer and Newsletter Generator
 
-TrendBot is an innovative AI-powered application that keeps you up-to-date with the latest trends across social media, technology, and literature. It combines real-time trend analysis with the power of generative AI to provide insightful conversations and create engaging newsletters.
+TrendScout is an innovative AI-powered application that keeps you up-to-date with the latest trends across social media, technology, and literature. It combines real-time trend analysis with the power of generative AI to provide insightful conversations and create engaging newsletters.
 
 ## How It Works
 
@@ -10,7 +10,7 @@ TrendBot is an innovative AI-powered application that keeps you up-to-date with 
 
 3. **Automated Newsletter Generation**: With a single click, TrendBot creates a comprehensive newsletter based on current trends, perfect for content creators and marketers.
 
-## Why Choose TrendBot?
+## Why Choose TrendScout?
 
 - **Stay Informed**: Get instant access to the latest trends across multiple domains.
 - **Save Time**: Automate your trend research and newsletter creation process.
@@ -72,6 +72,6 @@ The built files will be in the `dist` directory, ready for deployment to your pr
 
 ## Customization
 
-You can easily customize TrendBot by modifying the trend categories, adjusting the UI, or extending the AI capabilities. Refer to the source code comments for guidance on making changes.
+You can easily customize TrendScout by modifying the trend categories, adjusting the UI, or extending the AI capabilities. Refer to the source code comments for guidance on making changes.
 
-Start using TrendBot today and revolutionize how you stay informed and create content!
+Start using TrendScout today and revolutionize how you stay informed and create content!
