@@ -7,3 +7,5 @@
 # Optional: Ignore other common files and directories
 .DS_Store
 *.log
+node_modules/
+.vercel

@@ -5,4 +5,7 @@ export default {
     extend: {},
   },
   plugins: [],
+  fontFamily: {
+    sans: ['Roboto', 'sans-serif'],
+  },
 };

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { FaNewspaper, FaGlobe, FaBook, FaLaptopCode, FaBars } from 'react-icons/fa';
+import { FaNewspaper, FaGlobe, FaBook, FaLaptopCode, FaBars, FaHome } from 'react-icons/fa';
 import { AiOutlineLoading3Quarters, AiOutlineSend } from 'react-icons/ai';
 
 const TrendSection = ({ icon: Icon, title, trends }) => (
-  <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-    <h3 className="text-lg font-semibold mb-2 flex items-center">
-      <Icon className="mr-2 text-blue-600" /> {title}
+  <div className="bg-white rounded-lg shadow-lg p-4 mb-4">
+    <h3 className="text-2xl font-semibold mb-2 flex items-center text-gray-900">
+      <Icon className="mr-2 text-blue-600" size={24} /> {title}
     </h3>
-    <ul className="list-disc list-inside">
+    <ul className="list-disc list-inside text-gray-800 space-y-1">
       {trends.map((trend, index) => (
         <li key={index} className="text-gray-700">{trend}</li>
       ))}
@@ -64,7 +64,7 @@ export default function App() {
         }
       );
 
-      const generatedText = response.data.candidates[0].content.parts[0].text;
+      const generatedText = response.data.candidates[0].content.parts[0].text.trim();
       setMessages([...newMessages, { text: generatedText, sender: 'bot' }]);
     } catch (error) {
       console.error(error);
@@ -87,7 +87,7 @@ export default function App() {
         }
       );
 
-      const generatedNewsletter = response.data.candidates[0].content.parts[0].text;
+      const generatedNewsletter = response.data.candidates[0].content.parts[0].text.trim();
       setNewsletter(generatedNewsletter);
     } catch (error) {
       console.error("Failed to generate newsletter:", error);
@@ -98,10 +98,10 @@ export default function App() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row h-screen overflow-hidden bg-gray-100">
+    <div className="flex flex-col h-screen bg-gray-100 font-sans">
       {/* Sidebar */}
-      <div className={`md:w-1/4 bg-white border-r border-gray-200 p-4 overflow-auto fixed md:relative top-0 left-0 h-full md:h-auto transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
-        <h2 className="text-2xl font-bold text-blue-600 mb-4">Trending Now</h2>
+      <div className={`fixed md:relative md:w-1/4 bg-white border-r border-gray-200 p-4 overflow-y-auto h-full md:h-auto transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
+        <h2 className="text-3xl font-bold text-blue-600 mb-4">Trending Now</h2>
         {trendSections.map((section, index) => (
           <TrendSection key={index} {...section} />
         ))}
@@ -111,9 +111,9 @@ export default function App() {
           disabled={generatingNewsletter}
         >
           {generatingNewsletter ? (
-            <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+            <AiOutlineLoading3Quarters className="animate-spin mr-2" size={20} />
           ) : (
-            <FaNewspaper className="mr-2" />
+            <FaNewspaper className="mr-2" size={20} />
           )}
           Generate Newsletter
         </button>
@@ -121,10 +121,10 @@ export default function App() {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col ml-0 md:ml-1/4">
-        <header className="bg-white border-b border-gray-200 p-4 flex justify-between items-center">
+        <header className="bg-white border-b border-gray-200 p-4 flex justify-between items-center relative md:fixed top-[-1px] left-0 w-full z-10 shadow-lg">
           <div>
-            <h1 className="text-2xl font-bold text-blue-600">TrendScout</h1>
-            <p className="text-gray-600">Your AI assistant for trends and newsletters</p>
+            <h1 className="text-3xl font-bold text-blue-600">TrendScout</h1>
+            <p className="text-gray-600 text-lg">Your AI assistant for trends and newsletters</p>
           </div>
           <button 
             className="md:hidden text-blue-600"
@@ -132,52 +132,58 @@ export default function App() {
           >
             <FaBars size={24} />
           </button>
+          <FaHome
+            size={24}
+            className="absolute top-4 right-4 text-gray-600 cursor-pointer hover:text-blue-600 transition duration-300"
+            onClick={() => window.location.href = "/"}
+          />
         </header>
 
-        <div className="flex-1 overflow-auto p-4 bg-gray-50">
+        <div className="flex-1 overflow-auto p-4 bg-gray-50 mt-16 md:mt-0">
           {newsletter && (
-            <div className="mb-4 p-4 bg-white rounded-lg shadow">
-              <h3 className="text-xl font-bold mb-2">Generated Newsletter</h3>
-              <div className="whitespace-pre-wrap">{newsletter}</div>
+            <div className="mb-4 p-4 bg-white rounded-lg shadow-md">
+              <h3 className="text-2xl font-bold mb-2">Generated Newsletter</h3>
+              <div className="text-gray-800 leading-relaxed whitespace-pre-wrap">{newsletter}</div>
             </div>
           )}
-          {messages.map((msg, index) => (
-            <div key={index} className={`mb-4 ${msg.sender === 'user' ? 'text-right' : 'text-left'}`}>
-              <div className={`inline-block max-w-[80%] px-4 py-2 rounded-lg ${
-                msg.sender === 'user' ? 'bg-blue-600 text-white' : 'bg-white text-gray-800 border border-gray-300'
-              }`}>
-                {msg.text}
-              </div>
+          <div className="flex flex-col-reverse h-full">
+            <div className="flex-1 overflow-auto">
+              {messages.map((msg, index) => (
+                <div key={index} className={`mb-4 ${msg.sender === 'user' ? 'text-right' : 'text-left'}`}>
+                  <div className={`inline-block max-w-[80%] px-4 py-2 rounded-lg ${
+                    msg.sender === 'user' ? 'bg-blue-600 text-white' : 'bg-white text-gray-800 border border-gray-300'
+                  }`}>
+                    {msg.text}
+                  </div>
+                </div>
+              ))}
+              {generatingAnswer && (
+                <div className="text-left">
+                  <div className="inline-block max-w-[80%] px-4 py-2 rounded-lg bg-white text-gray-800 border border-gray-300">
+                    <AiOutlineLoading3Quarters className="inline animate-spin mr-2" size={20} />
+                    Thinking...
+                  </div>
+                </div>
+              )}
             </div>
-          ))}
-          {generatingAnswer && (
-            <div className="text-left">
-              <div className="inline-block max-w-[80%] px-4 py-2 rounded-lg bg-white text-gray-800 border border-gray-300">
-                <AiOutlineLoading3Quarters className="inline animate-spin mr-2" />
-                Thinking...
-              </div>
-            </div>
-          )}
+          </div>
         </div>
 
         <footer className="bg-white border-t border-gray-200 p-4">
           <form onSubmit={generateAnswer} className="flex items-center">
             <input
               type="text"
-              className="flex-1 border border-gray-300 rounded-l-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
-              placeholder="Ask about trends..."
-              required
+              placeholder="Ask me something..."
+              className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
             />
             <button
               type="submit"
-              className={`px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition duration-300 ${
-                generatingAnswer ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-              disabled={generatingAnswer}
+              className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 flex items-center justify-center"
+              disabled={!question.trim() || generatingAnswer}
             >
-              {generatingAnswer ? <AiOutlineLoading3Quarters className="animate-spin" /> : <AiOutlineSend />}
+              <AiOutlineSend size={20} />
             </button>
           </form>
         </footer>
